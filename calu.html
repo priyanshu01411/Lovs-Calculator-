@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Love Calculator</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #ff6f91, #ff9671, #ffc75f);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            background: #ffffff;
+            padding: 20px 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            max-width: 400px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #ff6f91;
+            margin-bottom: 10px;
+        }
+
+        p {
+            color: #333;
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+        }
+
+        form input[type="text"],
+        form input[type="file"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            font-size: 1rem;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            outline: none;
+        }
+
+        form button {
+            background: linear-gradient(135deg, #ff6f91, #ffc75f);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            font-size: 1.2rem;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        form button:hover {
+            background: linear-gradient(135deg, #ff9671, #ffc75f);
+            transform: scale(1.05);
+        }
+
+        .result {
+            margin-top: 20px;
+            font-size: 1.2rem;
+            color: #ff6f91;
+            font-weight: bold;
+        }
+
+        .uploaded-images {
+            margin-top: 20px;
+        }
+
+        .uploaded-images img {
+            width: 100px;
+            height: 100px;
+            margin: 5px;
+            border-radius: 10px;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Love Calculator 💕</h1>
+        <p>Find out your love compatibility!</p>
+        <form id="loveForm">
+            <input type="text" id="yourName" placeholder="Your Name" required>
+            <input type="text" id="crushName" placeholder="Your Crush's Name" required>
+            <input type="file" id="yourPhoto" accept="image/*">
+            <input type="file" id="crushPhoto" accept="image/*">
+            <button type="submit">Calculate</button>
+        </form>
+        <div class="result" id="result"></div>
+        <div class="uploaded-images" id="uploadedImages"></div>
+    </div>
+
+    <script>
+        document.getElementById('loveForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Get input values
+            const yourName = document.getElementById('yourName').value.trim();
+            const crushName = document.getElementById('crushName').value.trim();
+            const yourPhoto = document.getElementById('yourPhoto').files[0];
+            const crushPhoto = document.getElementById('crushPhoto').files[0];
+
+            // Check if both names are entered
+            if (yourName === '' || crushName === '') {
+                alert('Please enter both names!');
+                return;
+            }
+
+            // Generate a random love percentage
+            const lovePercentage = Math.floor(Math.random() * 101);
+
+            // Display the result
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = `
+                <p>${yourName} and ${crushName}, your love compatibility is 
+                <strong>${lovePercentage}%</strong>! 💖</p>
+            `;
+
+            // Display uploaded images
+            const uploadedImagesDiv = document.getElementById('uploadedImages');
+            uploadedImagesDiv.innerHTML = '';
+            if (yourPhoto) {
+                const yourPhotoURL = URL.createObjectURL(yourPhoto);
+                uploadedImagesDiv.innerHTML += `<img src="${yourPhotoURL}" alt="Your Photo">`;
+            }
+            if (crushPhoto) {
+                const crushPhotoURL = URL.createObjectURL(crushPhoto);
+                uploadedImagesDiv.innerHTML += `<img src="${crushPhotoURL}" alt="Crush's Photo">`;
+            }
+        });
+    </script>
+</body>
+</html>
